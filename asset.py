@@ -25,8 +25,11 @@ class AnalyticAccountEntry:
     @fields.depends('origin')
     def on_change_with_company(self, name=None):
         Asset = Pool().get('asset')
-        company = super(AnalyticAccountEntry, self).on_change_with_company(
-            name)
+        try:
+            company = super(AnalyticAccountEntry, self).on_change_with_company(
+                name)
+        except AttributeError:
+            company = None
         if isinstance(self.origin, Asset):
             if self.origin.company:
                 return self.origin.company.id
