@@ -24,12 +24,10 @@ class AnalyticAccountEntry:
 
     @fields.depends('origin')
     def on_change_with_company(self, name=None):
-        Asset = Pool().get('asset')
-        try:
-            company = super(AnalyticAccountEntry, self).on_change_with_company(
-                name)
-        except AttributeError:
-            company = None
+        pool = Pool()
+        Asset = pool.get('asset')
+        company = super(AnalyticAccountEntry, self).on_change_with_company(
+            name=name)
         if isinstance(self.origin, Asset):
             if self.origin.company:
                 return self.origin.company.id
@@ -38,7 +36,7 @@ class AnalyticAccountEntry:
     @classmethod
     def search_company(cls, name, clause):
         domain = super(AnalyticAccountEntry, cls).search_company(name, clause)
-        domain = ['OR',
+        return ['OR',
             domain,
-            [('origin.company',) + tuple(clause[1:]) + tuple(('asset',))]]
-        return domain
+            [('origin.company',) + tuple(clause[1:]) + ('asset',)]
+            ]
