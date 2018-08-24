@@ -8,14 +8,12 @@ from trytond.modules.analytic_account import AnalyticMixin
 __all__ = ['Asset', 'AnalyticAccountEntry']
 
 
-class Asset(AnalyticMixin):
+class Asset(AnalyticMixin, metaclass=PoolMeta):
     __name__ = 'asset'
-    __metaclass__ = PoolMeta
 
 
-class AnalyticAccountEntry:
+class AnalyticAccountEntry(metaclass=PoolMeta):
     __name__ = 'analytic.account.entry'
-    __metaclass__ = PoolMeta
 
     @classmethod
     def _get_origin(cls):

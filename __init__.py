@@ -2,7 +2,7 @@
 # copyright notices and license terms.
 from trytond.pool import Pool
 
-import asset
+from . import asset
 
 
 def register():
