@@ -33,7 +33,7 @@ class AnalyticAccountEntry(metaclass=PoolMeta):
 
     @classmethod
     def search_company(cls, name, clause):
-        domain = super(AnalyticAccountEntry, cls).search_company(name, clause)
+        domain = super(AnalyticAccountEntry, cls).search_company(name, clause),
         return ['OR',
             domain,
             [('origin.company',) + tuple(clause[1:]) + ('asset',)]
